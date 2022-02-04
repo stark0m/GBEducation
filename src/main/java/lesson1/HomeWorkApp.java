@@ -7,6 +7,7 @@ public class HomeWorkApp {
         printColor();
         compareNumbers();
         System.out.println();
+        System.out.println();
     }
 
     private static void compareNumbers() {
