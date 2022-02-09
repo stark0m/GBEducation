@@ -4,7 +4,7 @@ import java.util.Random;
 
 import static TicTacToe.Main.in;
 
-public class TicTacToeClass {
+public class TicTacToeClass_2 {
     int dimension;
     private char[][] tictacMap;
     char dot_humain;
@@ -197,7 +197,7 @@ public class TicTacToeClass {
         }
     }
 
-    public TicTacToeClass(int SIZE,int CELLS_TOWIN, char DOT_HUMAIN, char DOT_AI, char DOT_EMPTY, String FREE_SPACE, char LOGO) {
+    public TicTacToeClass_2(int SIZE, int CELLS_TOWIN, char DOT_HUMAIN, char DOT_AI, char DOT_EMPTY, String FREE_SPACE, char LOGO) {
         this.tictacMap = new char[SIZE][SIZE];
         this.dot_humain = DOT_HUMAIN;
         this.dot_ai = DOT_AI;

@@ -19,7 +19,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        TicTacToeClass game = new TicTacToeClass(DIMENSION,CELLS_TOWIN, DOT_HUMAIN, DOT_AI, DOT_EMPTY, FREE_SPACE, DOT_LOGO);
+        TicTacToeClass_2 game = new TicTacToeClass_2(DIMENSION,CELLS_TOWIN, DOT_HUMAIN, DOT_AI, DOT_EMPTY, FREE_SPACE, DOT_LOGO);
 
         game.run();
     }
