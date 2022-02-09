@@ -1,6 +1,8 @@
+package TicTacToeGame;
+
 import java.util.Random;
 
-import static TicTacToe.Main.in;
+import static TicTacToeGame.Game.in;
 
 public class TicTacToeClass {
     int dimension;
