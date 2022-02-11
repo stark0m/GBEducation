@@ -5,17 +5,17 @@ import java.util.Random;
 import static TicTacToeGame.Game.in;
 
 public class TicTacToeClass {
-    int dimension;
+    private int dimension;
     private char[][] tictacMap;
-    char dot_humain;
-    char dot_empty;
-    char dot_ai;
-    String free_space;
-    char logo;
+    private char dot_humain;
+    private char dot_empty;
+    private char dot_ai;
+    private String free_space;
+    private char logo;
     private int needFilledCellsCountToWin;
-    private static int lastTurnRow;
-    private static int getLastTurnColumn;
-    private static int totalTurns;
+    private  int lastTurnRow;
+    private  int getLastTurnColumn;
+    private  int totalTurns;
 
     public void run() {
         this.showWelcomeMessage();
@@ -213,7 +213,7 @@ public class TicTacToeClass {
 
     }
 
-    public void showMap() {
+    private void showMap() {
         showFirstRow();
 
         showOnlyMap();
