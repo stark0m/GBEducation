@@ -1,6 +1,4 @@
-package lesson2.sort;
-
-import java.util.Arrays;
+package Algorithms.Lesson2.Sorting;
 
 public class SelectionSort {
     public static void sort(Integer[] arr) {
