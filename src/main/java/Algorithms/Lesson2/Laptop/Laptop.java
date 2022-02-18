@@ -63,9 +63,9 @@ public class Laptop {
 
     @Override
     public String toString() {
-        return "Ноутбук " +brandName +
+        return "Ноутбук " + brandName +
                 " цена=" + price +
-                ", Оперативная память=" + ramInstalled ;
+                ", Оперативная память=" + ramInstalled;
     }
 
 }

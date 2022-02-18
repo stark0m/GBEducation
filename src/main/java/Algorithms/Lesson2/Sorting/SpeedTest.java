@@ -18,7 +18,7 @@ public class SpeedTest {
 
     public static void endTime() {
         time = System.currentTimeMillis() - time;
-        System.out.println(time);
+        System.out.println(time+" мс");
 
     }
 

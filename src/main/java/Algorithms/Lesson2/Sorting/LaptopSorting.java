@@ -16,40 +16,40 @@ public class LaptopSorting {
             }
         }
 
-        HashList[] hashLists ;
+        SortList[] hashLists;
 
         hashLists = getHashListFromNotebookArrayByArrayLengthandBrand(laptops, max);
-         setHashListtoArray(hashLists,laptops);
+        setUsedSortListToArray(hashLists, laptops);
 
 
     }
 
-    private static void setHashListtoArray(HashList[] hashLists, Laptop[] laptops) {
+    private static void setUsedSortListToArray(SortList[] hashLists, Laptop[] laptops) {
         int i = 0;
-        Laptop[] laptopsTemp = new Laptop[1000];
-        for (HashList hashList : hashLists) {
-            if (hashList!=null){
+
+        for (SortList hashList : hashLists) {
+            if (hashList != null) {
 
                 for (Laptop laptop : hashList.list) {
-                    laptops[i]=laptop;
+                    laptops[i] = laptop;
                     i++;
                 }
             }
         }
     }
 
-    private static HashList[] getHashListFromNotebookArrayByArrayLengthandBrand(Laptop[] laptops, int max) {
-        HashList[] generatedHashList = new HashList[max+1];
+    private static SortList[] getHashListFromNotebookArrayByArrayLengthandBrand(Laptop[] laptops, int max) {
+        SortList[] generatedSortListArray = new SortList[max + 1];
 
         for (Laptop laptop : laptops) {
             int sortHashIndex = (int) laptop.getBrandName().charAt(0);
-            if (generatedHashList[sortHashIndex]==null) {
-                generatedHashList[sortHashIndex]= new HashList();
+            if (generatedSortListArray[sortHashIndex] == null) {
+                generatedSortListArray[sortHashIndex] = new SortList();
             }
-            generatedHashList[sortHashIndex].list.add(laptop);
+            generatedSortListArray[sortHashIndex].list.add(laptop);
 
         }
-        return generatedHashList;
+        return generatedSortListArray;
     }
 
 
@@ -57,60 +57,60 @@ public class LaptopSorting {
         int max = 0;
 
         for (Laptop laptop : laptops) { // ищем максимальный индекс первого символа названия Бренда
-            int ramInstalled =  laptop.getRamInstalled();
+            int ramInstalled = laptop.getRamInstalled();
             if (max < ramInstalled) {
                 max = ramInstalled;
             }
         }
 
-        HashList[] hashLists ;
-        hashLists = getHashListFromNotebookArrayByArrayLengthAndRamInstalled(laptops, max);
-      setHashListtoArray(hashLists,laptops);
+        SortList[] sortList;
+        sortList = getHashListFromNotebookArrayByArrayLengthAndRamInstalled(laptops, max);
+        setUsedSortListToArray(sortList, laptops);
 
     }
 
-    private static HashList[] getHashListFromNotebookArrayByArrayLengthAndRamInstalled(Laptop[] laptops, int max) {
-        HashList[] generatedHashList = new HashList[max+1];
+    private static SortList[] getHashListFromNotebookArrayByArrayLengthAndRamInstalled(Laptop[] laptops, int max) {
+        SortList[] generatedHashList = new SortList[max + 1];
 
         for (Laptop laptop : laptops) {
-            int sortHashIndex =  laptop.getRamInstalled();
-            if (generatedHashList[sortHashIndex]==null) {
-                generatedHashList[sortHashIndex]= new HashList();
+            int sortHashIndex = laptop.getRamInstalled();
+            if (generatedHashList[sortHashIndex] == null) {
+                generatedHashList[sortHashIndex] = new SortList();
             }
             generatedHashList[sortHashIndex].list.add(laptop);
 
         }
-    return generatedHashList;
+        return generatedHashList;
     }
 
     private static void sortByPrice(Laptop[] laptops) {
         int max = 0;
 
         for (Laptop laptop : laptops) { // ищем максимальный индекс первого символа названия Бренда
-            int price =  laptop.getPrice();
+            int price = laptop.getPrice();
             if (max < price) {
                 max = price;
             }
         }
 
-        HashList[] hashLists ;
-        hashLists = getHashListFromNotebookArrayByArrayLengthAndPrice(laptops, max);
-        setHashListtoArray(hashLists,laptops);
+        SortList[] sortList;
+        sortList = getHashListFromNotebookArrayByArrayLengthAndPrice(laptops, max);
+        setUsedSortListToArray(sortList, laptops);
 
     }
 
-    private static HashList[] getHashListFromNotebookArrayByArrayLengthAndPrice(Laptop[] laptops, int max) {
-        HashList[] generatedHashList = new HashList[max+1];
+    private static SortList[] getHashListFromNotebookArrayByArrayLengthAndPrice(Laptop[] laptops, int max) {
+        SortList[] generatedSortList = new SortList[max + 1];
 
         for (Laptop laptop : laptops) {
-            int sortHashIndex =  laptop.getPrice();
-            if (generatedHashList[sortHashIndex]==null) {
-                generatedHashList[sortHashIndex]= new HashList();
+            int sortListIndex = laptop.getPrice();
+            if (generatedSortList[sortListIndex] == null) {
+                generatedSortList[sortListIndex] = new SortList();
             }
-            generatedHashList[sortHashIndex].list.add(laptop);
+            generatedSortList[sortListIndex].list.add(laptop);
 
         }
-        return generatedHashList;
+        return generatedSortList;
     }
 
     public static void sort(Laptop[] laptops) {
@@ -128,6 +128,6 @@ public class LaptopSorting {
     }
 }
 
-class HashList {
+class SortList {
     public List<Laptop> list = new ArrayList<>();
 }
