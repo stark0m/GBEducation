@@ -15,14 +15,10 @@ public class Main {
 //        arr = new Integer[]{6, 17, 4, 0, 11, 2, 9, 12, 21, 13};
         SelectionSort.sort(arr);*/
 
-        final  int LAPTOP_COUNT = 10;
-        Laptop laptop1 = new Laptop();
-        Laptop[] laptops= new Laptop[LAPTOP_COUNT];
-        for (Laptop laptop : laptops) {
-            laptop = new Laptop();
-            laptop.genLaptop();
-            System.out.println(laptop);
-        }
+        final int LAPTOP_COUNT = 10;
+        Laptop[] laptops;
+        laptops = Laptop.genLaptop(LAPTOP_COUNT);
+        System.out.println(laptops);
 
 
         for (Laptop laptop : laptops) {
