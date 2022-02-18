@@ -67,4 +67,5 @@ public class Laptop {
                 " цена=" + price +
                 ", Оперативная память=" + ramInstalled ;
     }
+
 }

@@ -1,6 +1,7 @@
 package Algorithms.Lesson2;
 
 import Algorithms.Lesson2.Laptop.Laptop;
+import Algorithms.Lesson2.Sorting.LaptopSorting;
 import Algorithms.Lesson2.Sorting.MyArray;
 import Algorithms.Lesson2.Sorting.SelectionSort;
 
@@ -18,14 +19,16 @@ public class Main {
         final int LAPTOP_COUNT = 10;
         Laptop[] laptops;
         laptops = Laptop.genLaptop(LAPTOP_COUNT);
-        System.out.println(laptops);
 
 
-        for (Laptop laptop : laptops) {
-            System.out.println(laptop);
 
-        }
-        System.out.println(Arrays.toString(laptops));
+
+
+        LaptopSorting.showArray (laptops);
+        LaptopSorting.sort(laptops);
+        LaptopSorting.showArray (laptops);
+
+//        System.out.println(Arrays.toString(laptops));
 
     }
 }
