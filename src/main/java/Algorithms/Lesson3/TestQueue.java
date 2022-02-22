@@ -44,6 +44,7 @@ public class TestQueue {
         queue.display();
         System.out.println("add element: " + queue.insert(19));
         queue.display();
+
     }
 
 }
