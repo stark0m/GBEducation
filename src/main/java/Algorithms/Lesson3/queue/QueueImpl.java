@@ -22,7 +22,11 @@ public class QueueImpl <E> implements Queue<E> {
             return false;
         }
 
-        //организовать закольцовывание
+        if (tail == data.length-1) {
+            tail= DEFAULT_TAIL;
+        }
+
+
 
         data[++tail] = value;
         size++;
@@ -39,6 +43,11 @@ public class QueueImpl <E> implements Queue<E> {
 
         E value = data[head++];
 //        data[head] = null;
+        if (head== data.length) {
+
+            head = 0;
+        }
+        data[head-1] = null;
         size--;
         return value;
     }
@@ -71,11 +80,17 @@ public class QueueImpl <E> implements Queue<E> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
-        for (int i = head; i <= tail; i++) {
-            sb.append(data[i]);
-            if (i != tail) {
-                sb.append(", ");
+        for (int i = 0; i < data.length; i++) {
+            if (data[i]!=null){
+                if (i==head) {
+                    sb.append("Next queue: ");
+                }
+                sb.append(data[i]);
+                if (i != data.length-1) {
+                    sb.append(", ");
+                }
             }
+
         }
         return sb.append("]").toString();
     }
