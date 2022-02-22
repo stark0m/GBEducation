@@ -1,0 +1,65 @@
+2. Определить сложность следующих алгоритмов:
+
+O(1) -. Поиск элемента массива с известным индексом
+O(n)-. Дублирование одномерного массива через foreach
+O(1)-. Удаление элемента массива с известным индексом без сдвига
+O(n)-. Удаление элемента массива с неизвестным индексом без сдвига
+O(n)-. Удаление элемента массива с неизвестным индексом со сдвига
+
+a)O(n)+ O (n/2) = o(n)
+
+        int n = 10000;
+        List<Integer> arrayList = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < n; j *= 2) {
+                arrayList.add(i * j);
+            }
+        }
+
+b)O(n/2)+ O(n/4) = O(n)
+
+        int n = 10000;
+        List<Integer> arrayList = new ArrayList<>();
+        for (int i = 0; i < n; i += 2) {
+            for (int j = i; j < n; j++) {
+                arrayList.add(i * j);
+            }
+        }
+
+с)o(n/2)+O(n/4)+.... Ответ не однозначен , если учитывать оба цыкла то можно сказать что O(log n), если брать вложенный цыкл то скорее О(n)
+
+        int n = 10000;
+        List<Integer> arrayList = new ArrayList<>();
+        for (int i = 0; i < n; i ++) {
+            for (int j = 0; j < n; j++) {
+                arrayList.add(i * j);
+                n--;
+            }
+        }
+
+d*)O(n) могу ошибаться конечно, как по мне одномерная рекурсия от 10000*9999*9998*...*1
+```
+
+    factorial(BigInteger.valueOf(10000))
+
+public static BigInteger factorial(BigInteger n) {
+    if (n.equals(BigInteger.ONE)) {
+        return n;
+    }
+    return n.multiply(factorial(n.subtract(BigInteger.valueOf(1))));
+}
+
+
+e*)в зависимости от поведения самой среды алгоритм может быть как O(2^n) так и O(n)
+Т.к. сама рекурсия пораждает на каждом шаге две ветки можно сделать вывод что сложность O(2^n),
+и при этом если сама среда не будет выделять память для повтороно просчета повторяющихся значений а будет указывать на уже существующий элемент рекурсии
+т.е. f(x-1)+f(x-2) можно представить как f(f(x-2)+f(x-3))+f(x-2)  при этом f(x-2) может просчитываться на мой взгляд как единожды так и дважды в зависимости от спецыфики исполняемой среды
+
+fib(BigInteger.valueOf(50));
+
+public static BigInteger fib(BigInteger n) {
+    if (n.equals(BigInteger.ONE) || n.equals(BigInteger.TWO)) {
+        return n;
+    }
+    return fib(n.subtract(BigInteger.ONE)).add(fib(n.subtract(BigInteger.TWO)));
+}
