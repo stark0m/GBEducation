@@ -1,16 +1,15 @@
 package Algorithms.lesson4;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class TestMain4 {
 
     public static void main(String[] args) {
 //        testLinkedList();
-//        testHomeWork();
+
  //       testIterator();
         testDequeLinkedList();
+        testHomeWork();
     }
 
     private static void testDequeLinkedList() {
@@ -34,6 +33,30 @@ public class TestMain4 {
         dequeLinkedList.display();
         dequeLinkedList.insert(1,15);
         dequeLinkedList.display();
+
+        System.out.println("реализация вывода коллекции через цыкл for");
+        System.out.print("(");
+        for (Integer integer : dequeLinkedList) {
+            System.out.print(integer +" ");
+        }
+        System.out.println(")");
+        System.out.println("реализация вывода коллекции через класс итератор методом while");
+        Iterator<Integer> iterator = dequeLinkedList.iterator();
+
+        while (iterator.hasNext()){
+
+            System.out.print(iterator.next()+"->");
+        }
+        System.out.println("null");
+        System.out.println("количество элементов в коллекции: "+dequeLinkedList.size);
+        iterator = dequeLinkedList.iterator();
+        System.out.println("Повторно проходим по элементам колекции через цыкл while");
+        while (iterator.hasNext()){
+
+            System.out.print(iterator.next()+"->");
+        }
+        System.out.println("null");
+
     }
 
     private static void testLinkedList() {
@@ -69,8 +92,21 @@ public class TestMain4 {
 
     private static void testHomeWork() {
         //ДОЛЖНО РАБОТАТЬ!
+        final int COLLECTION_SIZE = 10;
 
         SimpleLinkedListImpl<Integer> linkedList = new SimpleLinkedListImpl<>();
+
+        System.out.println("Генерируем массив linkedList, количество элементов:" + COLLECTION_SIZE);
+        System.out.print("[");
+        for (int i = 0; i < COLLECTION_SIZE; i++) {
+            int rand = new Random().nextInt(50);
+            linkedList.insertFirst(rand);
+            System.out.print(rand + " ");
+
+        }
+        System.out.println(") сгенерированная коллекция");
+        System.out.println("Выводим содержимое коллекции методом for");
+
 
         for (Integer value : linkedList) {
             System.out.println("value: " + value);

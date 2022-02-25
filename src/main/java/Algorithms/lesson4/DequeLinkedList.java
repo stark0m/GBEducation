@@ -2,15 +2,13 @@ package Algorithms.lesson4;
 
 import Algorithms.lesson4.deque.Deque;
 
-public class DequeLinkedList<E> implements Deque<E> {
+import java.util.Iterator;
+
+public class DequeLinkedList<E> implements Deque<E>, Iterable<E> {
     protected Node<E> first;
     protected Node<E> last;
     protected Node<E> prev;
     protected int size;
-
-
-
-
 
 
     @Override
@@ -19,34 +17,35 @@ public class DequeLinkedList<E> implements Deque<E> {
     }
 
     public boolean insert(int position, E value) { // реализация перегрузки метода согласно ТЗ
-    if(size<position){
-        return false;
-    }
+        if (size < position) {
+            return false;
+        }
 
-    if(position==0) {
-        insertLeft(value);
-    }
-    if (position==size){
-        insertRight(value);
-    }
-    Node<E> elementToAddBefore = last;
+        if (position == 0) {
+            insertLeft(value);
+        }
+        if (position == size) {
+            insertRight(value);
+        }
+        Node<E> elementToAddBefore = last;
 
         for (int i = 0; i < position; i++) {
-            elementToAddBefore= elementToAddBefore.prev;
+            elementToAddBefore = elementToAddBefore.prev;
 
         }
-        Node<E> newElement = new Node<>(value,null,null);
+        Node<E> newElement = new Node<>(value, null, null);
         newElement.prev = elementToAddBefore.next.prev;
         newElement.next = elementToAddBefore.next;
 
 
-        elementToAddBefore.next.prev =  newElement;
-        elementToAddBefore.next=  newElement;
-
+        elementToAddBefore.next.prev = newElement;
+        elementToAddBefore.next = newElement;
+        size++;
 
         return true;
 
     }
+
     @Override
     public E remove() {
         return null;
@@ -54,9 +53,9 @@ public class DequeLinkedList<E> implements Deque<E> {
 
 
     public E remove(E value) {
-        if (!isEmpty()){
+        if (!isEmpty()) {
             Node<E> toRemove = indexOf(value);
-            if (toRemove==null){
+            if (toRemove == null) {
                 return null;
             }
             E result = toRemove.item;
@@ -66,10 +65,11 @@ public class DequeLinkedList<E> implements Deque<E> {
             size--;
             return result;
         }
-       return null;
+        return null;
     }
-/*done*/
-    public Node<E> indexOf(E value){
+
+    /*done*/
+    public Node<E> indexOf(E value) {
         Node<E> current = first;
 
         while (current != null) {
@@ -81,31 +81,33 @@ public class DequeLinkedList<E> implements Deque<E> {
         return null;
 
     }
+
     @Override
-public E removeLeft() {
-    if (isEmpty()){
-        return null;
-    }
-    E result = last.item;
-    last = last.prev;
-    last.next.prev = null;
-    last.next = null;
+    public E removeLeft() {
+        if (isEmpty()) {
+            return null;
+        }
+        E result = last.item;
+        last = last.prev;
+        last.next.prev = null;
+        last.next = null;
         size--;
-    return result;
-}
+        return result;
+    }
 
     @Override
     public E removeRight() {
-        if (isEmpty()){
+        if (isEmpty()) {
             return null;
         }
         E result = first.item;
         first = first.next;
         first.prev.next = null;
-        first.prev= null;
+        first.prev = null;
         size--;
         return result;
     }
+
     @Override
     public E peekFront() {
         return peekRight();
@@ -114,9 +116,11 @@ public E removeLeft() {
     public E peekBack() {
         return peekLeft();
     }
+
     public E peekRight() {
         return first.item;
     }
+
     public E peekLeft() {
         return last.item;
     }
@@ -156,6 +160,7 @@ public E removeLeft() {
 
         return sb.append("]").toString();
     }
+
     @Override
     public boolean insertLeft(E value) {
 
@@ -185,5 +190,45 @@ public E removeLeft() {
 
         size++;
         return true;
+    }
+
+
+    @Override
+    public Iterator<E> iterator() {
+        return new DequeIterator<>();
+    }
+
+
+
+    private class DequeIterator<E> implements Iterator {
+        Integer counter;
+        Node<E> result;
+        public DequeIterator() {
+            this.counter = 0;
+            result = new Node<E>((E) null, (Node<E>) null, (Node<E>) last) ;
+
+
+        }
+
+
+        @Override
+        public boolean hasNext() {
+            return size > counter;
+        }
+
+        @Override
+        public E next() {
+            this.counter++;
+            result = result.prev;
+            return result.item;
+
+        }
+
+
+
+        public void clearIterator(){
+            counter = 0;
+            result = new Node<E>((E) null, (Node<E>) null, (Node<E>) last) ;
+        }
     }
 }

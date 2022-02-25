@@ -5,7 +5,7 @@ package Algorithms.lesson4.deque;
 
 import Algorithms.lesson4.queue.Queue;
 
-public interface Deque<E> extends Queue<E> {
+public interface Deque<E>  extends Queue<E> {
 
 
 
