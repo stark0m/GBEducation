@@ -18,12 +18,12 @@ public interface Deque<E>  extends Queue<E> {
     class Node<E> {
         public E item;
         public Node<E> next;
-        public Node<E> prev;
+        public Node<E> last;
 
-        public Node(E item, Node<E> next,Node<E> prev) {
+        public Node(E item, Node<E> next,Node<E> last) {
             this.item = item;
             this.next = next;
-            this.prev = prev;
+            this.last = last;
         }
     }
 

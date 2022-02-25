@@ -29,11 +29,33 @@ public class TestMain4 {
         System.out.println(dequeLinkedList.removeLeft());
         System.out.println(dequeLinkedList.removeRight());
         dequeLinkedList.display();
-        System.out.println(dequeLinkedList.remove(3));
+        int tmp = dequeLinkedList.remove(3);
+        System.out.println(tmp);
         dequeLinkedList.display();
         dequeLinkedList.insert(1,15);
+
+        dequeLinkedList.display();
+        System.out.println(dequeLinkedList.removeLeft());
+        System.out.println(dequeLinkedList.removeLeft());
+        System.out.println(dequeLinkedList.removeLeft());
+        System.out.println(dequeLinkedList.removeLeft());
+        System.out.println(dequeLinkedList.removeLeft());
+        System.out.println(dequeLinkedList.removeLeft());
+        System.out.println(dequeLinkedList.removeLeft());
+        System.out.println(dequeLinkedList.removeLeft());
+        System.out.println(dequeLinkedList.removeLeft());
+
         dequeLinkedList.display();
 
+        dequeLinkedList.insertLeft(4);
+        dequeLinkedList.insertRight(5);
+        dequeLinkedList.insertRight(6);
+        dequeLinkedList.insertRight(7);
+        dequeLinkedList.insertRight(8);
+        dequeLinkedList.insertLeft(9);
+        dequeLinkedList.insertLeft(10);
+
+        dequeLinkedList.display();
         System.out.println("реализация вывода коллекции через цыкл for");
         System.out.print("(");
         for (Integer integer : dequeLinkedList) {

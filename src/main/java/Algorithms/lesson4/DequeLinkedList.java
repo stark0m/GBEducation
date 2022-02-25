@@ -7,7 +7,7 @@ import java.util.Iterator;
 public class DequeLinkedList<E> implements Deque<E>, Iterable<E> {
     protected Node<E> first;
     protected Node<E> last;
-    protected Node<E> prev;
+
     protected int size;
 
 
@@ -30,15 +30,15 @@ public class DequeLinkedList<E> implements Deque<E>, Iterable<E> {
         Node<E> elementToAddBefore = last;
 
         for (int i = 0; i < position; i++) {
-            elementToAddBefore = elementToAddBefore.prev;
+            elementToAddBefore = elementToAddBefore.last;
 
         }
         Node<E> newElement = new Node<>(value, null, null);
-        newElement.prev = elementToAddBefore.next.prev;
+        newElement.last = elementToAddBefore.next.last;
         newElement.next = elementToAddBefore.next;
 
 
-        elementToAddBefore.next.prev = newElement;
+        elementToAddBefore.next.last = newElement;
         elementToAddBefore.next = newElement;
         size++;
 
@@ -59,9 +59,9 @@ public class DequeLinkedList<E> implements Deque<E>, Iterable<E> {
                 return null;
             }
             E result = toRemove.item;
-            toRemove.next.prev = toRemove.prev;
-            toRemove.prev.next = toRemove.next;
-            toRemove.next = toRemove.prev = null;
+            toRemove.next.last = toRemove.last;
+            toRemove.last.next = toRemove.next;
+            toRemove.next = toRemove.last = null;
             size--;
             return result;
         }
@@ -88,10 +88,14 @@ public class DequeLinkedList<E> implements Deque<E>, Iterable<E> {
             return null;
         }
         E result = last.item;
-        last = last.prev;
-        last.next.prev = null;
-        last.next = null;
+        last = last.last;
         size--;
+        if (!isEmpty()){
+        last.next.last = null;
+        last.next = null;}else {
+            first = last = null;
+        }
+
         return result;
     }
 
@@ -102,9 +106,15 @@ public class DequeLinkedList<E> implements Deque<E>, Iterable<E> {
         }
         E result = first.item;
         first = first.next;
-        first.prev.next = null;
-        first.prev = null;
         size--;
+       if (!isEmpty()){
+           first.last.next = null;
+           first.last = null;
+           } else {
+           first = last = null;
+       }
+
+
         return result;
     }
 
@@ -152,10 +162,10 @@ public class DequeLinkedList<E> implements Deque<E>, Iterable<E> {
 
         while (current != null) {
             sb.append(current.item);
-            if (current.prev != null) {
+            if (current.last != null) {
                 sb.append(" -> ");
             }
-            current = current.prev;
+            current = current.last;
         }
 
         return sb.append("]").toString();
@@ -185,8 +195,8 @@ public class DequeLinkedList<E> implements Deque<E>, Iterable<E> {
         }
 
 
-        first.prev = new Node<>(value, first, null);
-        first = first.prev;
+        first.last = new Node<>(value, first, null);
+        first = first.last;
 
         size++;
         return true;
@@ -219,7 +229,7 @@ public class DequeLinkedList<E> implements Deque<E>, Iterable<E> {
         @Override
         public E next() {
             this.counter++;
-            result = result.prev;
+            result = result.last;
             return result.item;
 
         }
