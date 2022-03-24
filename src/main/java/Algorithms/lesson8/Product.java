@@ -32,7 +32,7 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title);
-//        return id;
+//        return Objects.hash(id, title);
+        return id;
     }
 }

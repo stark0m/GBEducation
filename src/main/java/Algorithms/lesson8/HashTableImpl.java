@@ -1,9 +1,11 @@
 package Algorithms.lesson8;
 
-public class HashTableImpl <K, V> implements HashTable<K, V> {
+import java.util.ArrayList;
 
-    private final Item<K, V>[] data;
-    private final Item<K, V> emptyItem;
+public class HashTableImpl<K, V> implements HashTable<K, V> {
+
+    private ArrayList<Item<K, V>>[] data;
+
     private int size;
 
     static class Item<K, V> implements Entry<K, V> {
@@ -13,6 +15,7 @@ public class HashTableImpl <K, V> implements HashTable<K, V> {
         public Item(K key, V value) {
             this.key = key;
             this.value = value;
+
         }
 
         @Override
@@ -25,69 +28,54 @@ public class HashTableImpl <K, V> implements HashTable<K, V> {
             return value;
         }
 
+
         public void setValue(V value) {
             this.value = value;
         }
 
         @Override
         public String toString() {
-            return "Item{" + "key=" + key + ", value=" + value + '}';
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("Item{" + "key=" + key + ", value=");
+            stringBuilder.append(value);
+            stringBuilder.append('}');
+
+
+            return stringBuilder.toString();
         }
     }
 
     public HashTableImpl(int initialCapacity) {
-        this.data = new Item[initialCapacity * 2];
-        emptyItem = new Item<>(null, null);
+        this.data = new ArrayList[initialCapacity * 2];
+
+
     }
 
     public HashTableImpl() {
         this(16);
     }
 
-        @Override
+    @Override
     public boolean put(K key, V value) {
         if (size() == data.length) {
             return false;
         }
 
         int index = hashFunc(key);
-        int n = 0;
 
-        while (data[index] != null && data[index] != emptyItem) {
-            if (isKeysEquals(data[index], key)) {
-                data[index].setValue(value);
-                return true;
-            }
-//            index += getStepLinear();
-//            index += getStepQuadratic(n++);
-            index += getDoubleHash(key);
-            index %= data.length;
+        if (data[index] == null) {
+            data[index] = new ArrayList<>(1);
+            data[index].add(new Item<>(key, value));
+            size++;
+
+        } else {
+            data[index].add(new Item<>(key, value));
         }
-
-        data[index] = new Item<>(key, value);
-        size++;
-
         return true;
+
+
     }
 
-    private int getDoubleHash(K key) {
-        return 5 - (key.hashCode() % 5);
-    }
-
-    private int getStepLinear() {
-        return 1;
-    }
-
-    private int getStepQuadratic(int n) {
-        return (int)Math.pow(n, 2);
-    }
-
-    private boolean isKeysEquals(Item<K, V> item, K key) {
-        if (item == emptyItem) {
-            return false;
-        }
-        return (item.getKey() == null) ? (key == null) : (item.getKey().equals(key));
-    }
 
     private int hashFunc(K key) {
         return Math.abs(key.hashCode() % data.length);
@@ -95,41 +83,57 @@ public class HashTableImpl <K, V> implements HashTable<K, V> {
 
     @Override
     public V get(K key) {
-        int index = indexOf(key);;
-        return index == -1 ? null : data[index].getValue();
+        int index = indexOf(key);
+        ;
+        if (index == -1) return null;
+
+
+        for (Item<K, V> datum : data[index]) {
+
+            if (datum.getKey().equals(key)) {
+                return datum.getValue();
+            }
+        }
+        return null;
     }
 
     private int indexOf(K key) {
         int index = hashFunc(key);
-
-        int count = 0;
-        while (count++ < data.length) {
-            if (data[index] == null) {
-                break;
-            }
-            if (isKeysEquals(data[index], key)) {
-                return index;
-            }
-
-//            index += getStepQuadratic(count - 1);
-            index += getDoubleHash(key);
-            index %= data.length;
+        if (data[index] == null) {
+            return -1;
         }
-        return -1;
+        return index;
+
+
+
     }
 
     @Override
     public V remove(K key) {
 
-        int index = indexOf(key);
-        if (index == -1) {
+
+        if (get(key) == null) {
             return null;
         }
+        int index = indexOf(key);
+        if (data[index].size() == 1) {
+            Item<K, V> removed = data[index].get(0);
+            data[index] = null;
+            removed.getValue();
+            size--;
+            return removed.getValue();
+        }
 
-        Item<K, V> removed = data[index];
-        data[index] = emptyItem;
+        for (Item<K, V> kvItem : data[index]) {
+            if (kvItem.getKey().equals(key)) {
+                data[index].remove(kvItem);
+                return kvItem.getValue();
+            }
 
-        return removed.getValue();
+        }
+
+        return null;
+
     }
 
     @Override
