@@ -1,10 +1,14 @@
 package Lesson13;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
+
 public class Car implements Runnable {
     private static int CARS_COUNT;
     private Race race;
     private int speed;
     private String name;
+    private static CountDownLatch cdl;
 
     public String getName() {
         return name;
@@ -19,13 +23,18 @@ public class Car implements Runnable {
         this.speed = speed;
         CARS_COUNT++;
         this.name = "Участник #" + CARS_COUNT;
+        this.cdl = new CountDownLatch(CARS_COUNT);
     }
 
     @Override
     public void run() {
+
         try {
             System.out.println(this.name + " готовится");
+
             Thread.sleep(500 + (int) (Math.random() * 800));
+            cdl.countDown();
+            cdl.await();
             System.out.println(this.name + " готов");
         } catch (Exception e) {
             e.printStackTrace();
