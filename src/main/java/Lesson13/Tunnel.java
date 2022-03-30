@@ -1,5 +1,7 @@
 package Lesson13;
 
+import java.util.concurrent.Semaphore;
+
 public class Tunnel extends Stage {
     public Tunnel() {
         this.length = 80;
@@ -8,10 +10,16 @@ public class Tunnel extends Stage {
 
     @Override
     public void go(Car c) {
+        go(c, new Semaphore(1));
+    }
+
+    @Override
+    public void go(Car c, Semaphore sem) {
         try {
             try {
                 System.out.println(c.getName() + " готовится к этапу(ждет): " +
                         description);
+                sem.acquire();
                 System.out.println(c.getName() + " начал этап: " + description);
                 Thread.sleep(length / c.getSpeed() * 1000);
             } catch (InterruptedException e) {
@@ -19,6 +27,7 @@ public class Tunnel extends Stage {
             } finally {
                 System.out.println(c.getName() + " закончил этап: " +
                         description);
+                sem.release();
             }
         } catch (Exception e) {
             e.printStackTrace();

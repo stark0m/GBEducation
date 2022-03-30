@@ -1,5 +1,7 @@
 package Lesson13;
 
+import java.util.concurrent.Semaphore;
+
 public class Road extends Stage {
     public Road(int length) {
         this.length = length;
@@ -15,5 +17,10 @@ public class Road extends Stage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void go(Car c, Semaphore sem) {
+        this.go(c);
     }
 }

@@ -2,6 +2,7 @@ package Lesson13;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Semaphore;
 
 public class Car implements Runnable {
     private static int CARS_COUNT;
@@ -9,6 +10,7 @@ public class Car implements Runnable {
     private int speed;
     private String name;
     private static CountDownLatch cdl;
+    private static Semaphore semaphore;
 
     public String getName() {
         return name;
@@ -24,6 +26,7 @@ public class Car implements Runnable {
         CARS_COUNT++;
         this.name = "Участник #" + CARS_COUNT;
         this.cdl = new CountDownLatch(CARS_COUNT);
+        semaphore = new Semaphore(CARS_COUNT / 2);
     }
 
     @Override
@@ -39,8 +42,12 @@ public class Car implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < race.getStages().size(); i++) {
-            race.getStages().get(i).go(this);
+
+            for (Stage stage : race.getStages() ) {
+
+                    stage.go(this,semaphore);
+
+
         }
     }
 }
