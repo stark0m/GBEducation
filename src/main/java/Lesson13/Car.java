@@ -11,6 +11,7 @@ public class Car implements Runnable {
     private String name;
     private static CountDownLatch cdl;
     private static Semaphore semaphore;
+    private static volatile boolean anybodyFinished = false;
 
     public String getName() {
         return name;
@@ -49,5 +50,9 @@ public class Car implements Runnable {
 
 
         }
+            if (!anybodyFinished) {
+                anybodyFinished =true;
+                System.out.println(this.name  + " WIN");
+            }
     }
 }
